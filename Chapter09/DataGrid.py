@@ -62,7 +62,8 @@ class DataGrid(QWidget):
 		# 查询模型		
 		self.queryModel = None
 		# 数据表
-		self.tableView = None		
+		self.tableView = None
+		
 		# 总数页文本
 		self.totalPageLabel = None
 		# 当前页文本
@@ -202,7 +203,7 @@ class DataGrid(QWidget):
 		if  self.totalRecrodCount % self.PageRecordCount == 0  :
 			return (self.totalRecrodCount / self.PageRecordCount )
 		else :
-			return (self.totalRecrodCount / self.PageRecordCount + 1)
+			return (int(self.totalRecrodCount / self.PageRecordCount) + 1)
 
 	# 记录查询		
 	def recordQuery(self, limitIndex ):	
@@ -258,8 +259,14 @@ class DataGrid(QWidget):
 		# 得到输入字符串
 		szText = self.switchPageLineEdit.text()
 		#数字正则表达式		
-		pattern = re.compile(r'^[-+]?[0-9]+\.[0-9]+$')
-		match = pattern.match(szText)
+		#pattern = re.compile(r'^[-+]?[0-9]+\.[0-9]+$')
+		#match = pattern.match(szText)
+		try:
+			match=None
+			match=int(szText)
+		except Exception as e:
+			print(e)
+
 		
 		# 判断是否为数字
 		if not match :
